@@ -1,0 +1,24 @@
+
+* { 
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    width: 200px;
+    height: auto;
+}
+
+header {
+    height: 700px;
+    background-image: url(/public/images/hero.jpg);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    color: white; 
+
+    padding: 5rem 4rem;
+
+}
