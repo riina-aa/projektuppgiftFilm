@@ -1,0 +1,21 @@
+
+
+section {
+    padding: 3rem 4rem;
+    h2 {
+        color:white;
+        margin-bottom: 1rem;
+    }
+}
+.movie-cards {
+    display: flex; 
+    flex-direction: row;
+    gap: 2rem;
+
+    
+}
+
+.movie-card img {
+    width: 170px; 
+    height: auto;
+}

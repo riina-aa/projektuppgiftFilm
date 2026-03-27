@@ -1,3 +1,6 @@
+@use "../base/base";
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,17 +8,18 @@
 }
 
 body {
-    background-color: rgb(217, 210, 189);
+    background-color: black;
+    font-family: base.$font;
 }
 
 #logo {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 0.8rem;
+    left: 0.8rem;
 
     img {
         padding: 1rem 2rem;
-        width: 300px;
+        width: 325px;
         height: auto;
         display: block;
     }

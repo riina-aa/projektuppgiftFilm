@@ -1,0 +1,16 @@
+@use "sass:color"; 
+
+
+//Primary
+$color-primary-coral: #F26F6F; 
+$color-primary-blue: #29AAE2; 
+$color-primary-green: #8CC640; 
+
+//Primary variationer 
+$color-dark-coral: color.scale(#F26F6F, $lightness: -5%);
+
+//Font
+$font: "Poppins", sans-serif; 
+
+//Fontstorlekar
+$font-size-header: 18px;

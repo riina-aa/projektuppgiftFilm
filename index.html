@@ -1,16 +1,62 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/scss/main.scss">
-    <title>projektuppgift</title>
-  </head>
-  <body>
-    <div id="logo"><img src="/public/images/logo.png" alt=""></div>
-    <header></header>
-    <nav></nav>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/src/scss/main.scss">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <title>projektuppgift</title>
+</head>
+
+<body>
+  <div id="logo"><a href="index.html"><img src="/public/images/logo.png" alt=""></a></div>
+  <header></header>
+  <nav>
+    <label for="search">
+      <span>Vad vill du titta på idag?</span>
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </label>
+    <input type="text">
+    <span id="search-icon" class="material-symbols-outlined">search</span>
+    <div class="watchlist">
+      <span class="material-symbols-outlined">bookmark_star</span>
+      <span>Watchlist</span>
+    </div>
+  </nav>
+
+  <section>
+    <h2>Populäraste filmerna just nu</h2>
+    <div id="popular" class="movie-cards"></div>
+  </section>
+
+  <section>
+    <h2>Filmer till kvällsmyset</h2>
+    <div id="cozy" class="movie-cards"></div>
+  </section>
+
+  <section>
+    <h2>Adrenalin på hög nivå</h2>
+    <div id="action" class="movie-cards"></div>
+  </section>
+
+  <section>
+    <h2>Från din watchlist</h2>
+    <div id="display-watchlist" class="movie-cards"></div>
+  </section>
+
+  <section>
+    <h2>Tårar garanteras</h2>
+    <div id="drama" class="movie-cards"></div>
+  </section>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+
 </html>

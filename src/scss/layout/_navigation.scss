@@ -1,0 +1,63 @@
+@use "../base/base"; 
+
+nav {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+
+    width: 100%; 
+    max-height: fit-content;
+    background-color: base.$color-primary-coral;
+    padding: 0.8rem 10rem;
+
+    label {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-self: center;
+        align-content: center;
+        
+        color: black;
+        font-size: base.$font-size-header;
+       
+    }
+
+    input {
+        width: 90ch; 
+        height: 2.5em;
+        align-self: center;
+        margin-right: 7rem;
+
+        border: none; 
+        border-radius: 20px;
+        color: black; 
+        padding: 0.3em 1.2em;
+    }
+
+    #search-icon {
+        position: absolute;
+        top: 22px; 
+        right: 600px;
+    }
+
+    .watchlist {
+        display: flex;
+        flex-direction: row;
+        gap: 0.3rem;
+        align-items: center;
+        
+        border: none;
+        border-radius: 20px;
+        padding: 0.5rem 0.8rem;
+        background-color: base.$color-primary-coral;
+        
+        color: black; 
+        font-size: base.$font-size-header;
+
+        &:hover {
+            cursor: pointer;
+            background-color: base.$color-dark-coral;
+        }
+    }
+}
