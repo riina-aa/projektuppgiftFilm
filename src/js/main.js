@@ -43,9 +43,9 @@ async function fetchMovies(endpoint) {
 
 };
 
-function displayMovies(movies, selector) {
+function displayMovies(movies, sectionID) {
 
-    let section = document.querySelector(selector); 
+    let section = document.querySelector(sectionID); 
 
     movies.slice(0, 8).forEach(movie => {
       const div = document.createElement("div"); 

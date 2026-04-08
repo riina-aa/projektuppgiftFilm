@@ -1,21 +1,28 @@
-
-
 section {
     padding: 3rem 4rem;
+
     h2 {
-        color:white;
+        color: white;
         margin-bottom: 1rem;
     }
 }
+
 .movie-cards {
-    display: flex; 
+    display: flex;
     flex-direction: row;
     gap: 2rem;
-
-    
 }
 
-.movie-card img {
-    width: 170px; 
-    height: auto;
+.movie-card {
+
+    img {
+        width: 170px;
+        height: auto;
+
+        &:hover {
+            
+        }
+    }
+
+    
 }
