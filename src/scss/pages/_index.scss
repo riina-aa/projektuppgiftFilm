@@ -1,3 +1,5 @@
+@use "/src/scss/base/base";
+
 section {
     padding: 3rem 4rem;
 
@@ -14,15 +16,116 @@ section {
 }
 
 .movie-card {
+    position: relative;
 
     img {
         width: 170px;
         height: auto;
+    }
+
+    .overlay {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: end;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        padding: 1rem;
+
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        opacity: 0;
+        transition: opacity 0.3s;
+
+        span {
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
 
         &:hover {
-            
+            opacity: 1;
+        }
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: base.$color-primary-coral, $alpha: 0.7);
+
+    .closeIcon {
+        position: absolute;
+        top: 60px;
+        right: 250px;
+        color: white;
+        cursor: pointer;
+
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: row;
+
+        width: 70%;
+        height: 80%;
+        margin: 3% auto;
+
+        background-color: #000000;
+        color: white;
+
+        .poster img {
+            height: 100%;
+        }
+
+        .about {
+            padding: 2rem;
+
+            h2 {
+                margin-bottom: 1rem;
+            }
+
+            .sub-menu {
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+                align-items: center;
+                margin-bottom: 2rem;
+
+                .submenu-items {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 1rem;
+                    align-items: center;
+                }
+
+                span.star-icon {
+                    color: base.$color-primary-green;
+                }
+
+                span.add-icon {
+                    color: base.$color-primary-blue;
+                }
+            }
+
+
+
+
         }
     }
 
-    
+
 }
