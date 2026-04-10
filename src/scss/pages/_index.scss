@@ -77,8 +77,10 @@ section {
     }
 
     .modal-content {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 40% 60%;
+        grid-template-rows: repeat(3, auto);
+        overflow: auto;
 
         width: 70%;
         height: 80%;
@@ -87,14 +89,25 @@ section {
         background-color: #000000;
         color: white;
 
-        .poster img {
-            height: 100%;
+        .poster {
+            grid-column: 1;
+            grid-row: 1 / -1;
+
+            img {
+                width: 100%; 
+                height: 100%;
+            }
         }
 
+
+
         .about {
+            grid-column: 2;
+            grid-row: 1;
             padding: 2rem;
 
             h2 {
+                font-size: base.$font-size-modalheader;
                 margin-bottom: 1rem;
             }
 
@@ -121,9 +134,26 @@ section {
                 }
             }
 
+            .actors {
+                display: flex;
+                flex-direction: row;
+                gap: 0.7em;
+                font-size: base.$font-size-smalltext;
+                margin-top: 1rem;
+            }
+        }
 
+        .trailer-container {
+            grid-column: 2;
+            grid-row: 2;
+            padding: 0rem 2rem 2rem 2rem;
+            width: 600px;
+            height: 338px;
+        }
 
-
+        .recommendations {
+            grid-column: 2;
+            grid-row: 3;
         }
     }
 
