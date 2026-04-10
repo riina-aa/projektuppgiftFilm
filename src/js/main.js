@@ -89,7 +89,11 @@ async function fetchMovieDetails(movie) {
     const trailerData = await trailerResponse.json();
     const videoID = trailerData.items[0].id.videoId;
 
-    displayModal(movie, topCast, videoID);
+    const similarRes = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/recommendations?language=en-US&page=1`, options);
+    const similarData = await similarRes.json();
+    const similarMovies = similarData.results.slice(0, 5);
+
+    displayModal(movie, topCast, videoID, similarMovies);
 
   } catch (error) {
     console.error("Failed:", error);
@@ -100,7 +104,7 @@ async function fetchMovieDetails(movie) {
 
 }
 
-async function displayModal(movie, cast, trailerID) {
+async function displayModal(movie, cast, trailerID, recommendations) {
 
   console.log(cast);
 
@@ -119,13 +123,13 @@ async function displayModal(movie, cast, trailerID) {
             <span class="star-icon material-symbols-outlined">star_rate</span>
             <p>${movie.vote_average}</p>
           </div>
-          <div class="submenu-items">
+          <div class="submenuBtn submenu-items">
             <span class="add-icon material-symbols-outlined">bookmark_add</span>
             <span>Lägg till på Watchlist</span>
           </div>
-          <div class="submenu-items">
+          <div id="playTrailerBtn" class="submenuBtn submenu-items">
             <span class="play-icon material-symbols-outlined">play_circle</span>
-            <span>Spela trailer</span>
+            <span class="play-text">Spela trailer</span>
           </div>
         </div>
         <p>${movie.overview}</p>
@@ -134,18 +138,29 @@ async function displayModal(movie, cast, trailerID) {
         </div>
       </div>
       <div class="trailer-container">
-        <iframe 
-          width="100%" 
-          height="100%"
-          src="https://www.youtube.com/embed/${trailerID}" 
-          frameborder="0" 
-          allowfullscreen>
-        </iframe>
+        <h3>Trailer</h3>
+        <div class="video-wrapper">
+          <iframe 
+            width="100%" 
+            height="100%"
+            src="https://www.youtube.com/embed/${trailerID}" 
+            frameborder="0" 
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
       <div class="recommendations">
         <h3>Liknande filmer:</h3>
         <div class="reco-cards">
-          
+          ${recommendations.map(movie => `
+          <div class="reco-card">
+            <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+            <div class="overlay">
+              <span class="addIcon material-symbols-outlined">bookmark_add</span>
+              <span class="infoIcon material-symbols-outlined" data-id=${movie.id}>info</span>
+            </div>
+          </div>
+          `).join("")}
         </div>
       </div>
     `;
@@ -154,8 +169,34 @@ async function displayModal(movie, cast, trailerID) {
 
   modal.style.display = "block";
 
+  const infoIcons = document.querySelectorAll(".reco-cards .infoIcon");
+
+  infoIcons.forEach(icon => {
+    icon.addEventListener("click", () => {
+
+      const movieId = icon.dataset.id;
+      const selectedMovie = recommendations.find(m => m.id == movieId);
+
+      fetchMovieDetails(selectedMovie);
+    });
+  });
+
+  const playTrailerBtn = document.querySelector("#playTrailerBtn");
+  const playIcon = document.querySelector(".play-icon");
+  const playText = document.querySelector(".play-text");
+
+  playTrailerBtn.addEventListener("click", () => {
+    modalContent.classList.toggle("show-trailer")
+
+    const isOpen = modalContent.classList.contains("show-trailer");
+
+    playText.textContent = isOpen ? "Stäng trailer" : "Spela trailer";
+    playIcon.textContent = isOpen ? "stop_circle" : "play_circle";
+    
+  });
+
   const closeIcon = document.querySelector(".closeIcon");
-  closeIcon.addEventListener("click", () => {
-    modal.style.display = "none";
-  })
+    closeIcon.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
 }

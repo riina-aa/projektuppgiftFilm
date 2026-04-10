@@ -1,4 +1,5 @@
 @use "/src/scss/base/base";
+@use "/src/scss/components/mixins";
 
 section {
     padding: 3rem 4rem;
@@ -16,46 +17,7 @@ section {
 }
 
 .movie-card {
-    position: relative;
-
-    img {
-        width: 170px;
-        height: auto;
-    }
-
-    .overlay {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: end;
-
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        padding: 1rem;
-
-        background-color: rgba($color: #000000, $alpha: 0.5);
-        opacity: 0;
-        transition: opacity 0.3s;
-
-        span {
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s;
-
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-
-        &:hover {
-            opacity: 1;
-        }
-    }
+    @include mixins.movie-card(170px, 40px);
 }
 
 .modal {
@@ -79,32 +41,31 @@ section {
     .modal-content {
         display: grid;
         grid-template-columns: 40% 60%;
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: auto;
         overflow: auto;
 
         width: 70%;
-        height: 80%;
-        margin: 3% auto;
+        height: 100%;
+        margin: 0% auto;
 
         background-color: #000000;
         color: white;
 
         .poster {
             grid-column: 1;
-            grid-row: 1 / -1;
+            grid-row: 1 / 3;
 
             img {
-                width: 100%; 
+                width: 100%;
                 height: 100%;
             }
         }
-
-
 
         .about {
             grid-column: 2;
             grid-row: 1;
             padding: 2rem;
+            max-height: fit-content;
 
             h2 {
                 font-size: base.$font-size-modalheader;
@@ -114,15 +75,25 @@ section {
             .sub-menu {
                 display: flex;
                 flex-direction: row;
-                gap: 2rem;
+                gap: 1.5rem;
                 align-items: center;
                 margin-bottom: 2rem;
 
                 .submenu-items {
                     display: flex;
                     flex-direction: row;
-                    gap: 1rem;
+                    gap: 0.5rem;
                     align-items: center;
+                }
+
+                .submenuBtn {
+                    padding: 0.3rem 0.7rem 0.3rem 0.5rem;
+                    border-radius: 15px;
+
+                    &:hover {
+                        background-color: rgba(128, 128, 128, 0.514);
+                        cursor: pointer;
+                    }
                 }
 
                 span.star-icon {
@@ -144,18 +115,65 @@ section {
         }
 
         .trailer-container {
+            display: none;
             grid-column: 2;
             grid-row: 2;
-            padding: 0rem 2rem 2rem 2rem;
+            padding: 0rem 2rem 0rem 2rem;
             width: 600px;
-            height: 338px;
+            height: 346px;
+
+            h3 {
+                margin-bottom: 1rem;
+            }
+
+            .video-wrapper {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+            }
         }
 
         .recommendations {
             grid-column: 2;
-            grid-row: 3;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+
+            padding: 0rem 2rem 2rem 2rem;
+
+            h3 {
+                margin-bottom: 1rem;
+            }
+
+            .reco-cards {
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+
+                .reco-card {
+                    @include mixins.movie-card(100px, 20px);
+                }
+            }
         }
     }
 
+    .modal-content.show-trailer {
+        grid-template-rows: auto auto auto;
+    }
 
+    .modal-content.show-trailer .trailer-container {
+        display: block;
+    }
+
+    .modal-content.show-trailer .recommendations {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        margin-top: 2rem;
+
+        .reco-cards {
+
+                .reco-card {
+                    @include mixins.movie-card(130px, 28px);
+                }
+            }
+    }
 }
