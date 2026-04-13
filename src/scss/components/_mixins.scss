@@ -1,9 +1,10 @@
 @mixin movie-card($width, $iconSize) {
 
     position: relative;
+    width: $width;
 
     img {
-        width: $width;
+        width: 100%;
         height: auto;
     }
 

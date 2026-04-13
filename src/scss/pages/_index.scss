@@ -10,14 +10,18 @@ section {
     }
 }
 
+#display-watchlist,
 .movie-cards {
-    display: flex;
-    flex-direction: row;
+    display: flex !important;
+    flex-wrap: wrap;
     gap: 2rem;
+    align-items: flex-start;
 }
+
 
 .movie-card {
     @include mixins.movie-card(170px, 40px);
+    flex: 0 0 auto;
 }
 
 .modal {

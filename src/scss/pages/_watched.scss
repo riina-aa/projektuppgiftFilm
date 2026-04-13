@@ -1,0 +1,40 @@
+@use "/src/scss/base/base";
+
+
+.container {
+
+    h1 {
+        color: white;
+        margin-bottom: 2rem;
+    }
+
+    .backBtn {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        padding: 0.7rem 1rem;
+        max-width: fit-content;
+
+        background-color: base.$color-primary-blue;
+        border-radius: 15px;
+
+        text-decoration: none;
+        color: white;
+
+        &:hover {
+            background-color: base.$color-dark-blue;
+        }
+    }
+
+    #saved-movies {
+
+        p {
+            color: white;
+        }
+    }
+
+}

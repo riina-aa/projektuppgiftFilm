@@ -62,8 +62,12 @@ nav {
         padding: 0.5rem 0.8rem;
         background-color: base.$color-primary-coral;
 
-        color: black;
-        font-size: base.$font-size-header;
+        a {
+            color: black;
+            font-size: base.$font-size-header;
+            text-decoration: none;
+        }
+
 
         &:hover {
             cursor: pointer;
