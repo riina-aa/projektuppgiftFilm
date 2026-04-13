@@ -31,7 +31,7 @@ section {
 
     .closeIcon {
         position: absolute;
-        top: 60px;
+        top: 50px;
         right: 250px;
         color: white;
         cursor: pointer;
@@ -45,11 +45,12 @@ section {
         overflow: auto;
 
         width: 70%;
-        height: 100%;
-        margin: 0% auto;
+        height: 90%;
+        margin: 2% auto;
 
         background-color: #000000;
         color: white;
+        box-shadow: 3px 3px 20px black;
 
         .poster {
             grid-column: 1;
@@ -176,4 +177,21 @@ section {
                 }
             }
     }
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #111;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }

@@ -3,6 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
   init();
 })
 
+function getSavedMovies() {
+  return JSON.parse(localStorage.getItem("savedMovies")) || [];
+}
+
+function saveToLocalStorage(movies) {
+  localStorage.setItem("savedMovies", JSON.stringify(movies));
+}
+
 async function init() {
 
   const popular = await fetchMovies('movie/popular?language=en-US&with_original_language=en');
@@ -17,7 +25,7 @@ async function init() {
   const drama = await fetchMovies('discover/movie?with_genres=18&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
   displayMovies(drama, "#drama");
 
-}
+};
 
 async function fetchMovies(endpoint) {
 
@@ -62,13 +70,40 @@ function displayMovies(movies, sectionID) {
 
     section.appendChild(div);
 
-    let infoIcon = div.querySelector(".infoIcon");
+    const infoIcon = div.querySelector(".infoIcon");
+    const bookmarkIcon = div.querySelector(".addIcon");
+
+    let savedMovies = getSavedMovies();
+
+    if (savedMovies.find(m => m.id === movie.id)) {
+      bookmarkIcon.textContent = "bookmark_added";
+    }
+   
+    bookmarkIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      let savedMovies = getSavedMovies();
+
+      const exists = savedMovies.find(m => m.id === movie.id);
+
+      if (!exists) {
+        savedMovies.push(movie);
+        bookmarkIcon.textContent = "bookmark_added";
+
+      } else {
+        savedMovies = savedMovies.filter(m => m.id !== movie.id);
+        bookmarkIcon.textContent = "bookmark_add";
+      }
+
+      saveToLocalStorage(savedMovies);
+    });
+
     infoIcon.addEventListener("click", async () => {
       fetchMovieDetails(movie);
-
     });
-  })
-}
+
+  });
+};
 
 async function fetchMovieDetails(movie) {
 
@@ -97,12 +132,8 @@ async function fetchMovieDetails(movie) {
 
   } catch (error) {
     console.error("Failed:", error);
-  }
-
-
-
-
-}
+  };
+};
 
 async function displayModal(movie, cast, trailerID, recommendations) {
 
@@ -192,11 +223,11 @@ async function displayModal(movie, cast, trailerID, recommendations) {
 
     playText.textContent = isOpen ? "Stäng trailer" : "Spela trailer";
     playIcon.textContent = isOpen ? "stop_circle" : "play_circle";
-    
+
   });
 
   const closeIcon = document.querySelector(".closeIcon");
-    closeIcon.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+  closeIcon.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
 }
