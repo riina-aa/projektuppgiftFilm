@@ -24,43 +24,52 @@
       <span class="material-symbols-outlined">arrow_forward</span>
     </label>
     <div>
-      <input type="text">
+      <input type="text" id="search">
       <span id="search-icon" class="material-symbols-outlined">search</span>
     </div>
-    
+
     <div class="watchlist">
       <span class="material-symbols-outlined">bookmark_star</span>
       <a href="watchlist.html">Watchlist</a>
     </div>
   </nav>
 
-  <section>
+  <section class="search-container">
+    <h1>Dina sökresultat:</h1>
+    <div class="search-results movie-cards"></div>
+    <a class="backBtn" href="index.html">
+      <span class="closeIcon material-symbols-outlined">arrow_back</span>
+      <span>Gå tillbaka till utforskaren</span>
+    </a>
+  </section>
+
+
+  <section class="movie-section">
     <h2>Populäraste filmerna just nu</h2>
     <div id="popular" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
     <h2>Filmer till kvällsmyset</h2>
     <div id="cozy" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
     <h2>Adrenalin på hög nivå</h2>
     <div id="action" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section id="watchlist-section" class="movie-section">
     <h2>Från din watchlist</h2>
     <div id="display-watchlist" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
     <h2>Drama drama drama...</h2>
     <div id="drama" class="movie-cards"></div>
   </section>
 
   <div class="modal">
-    <span class="closeIcon material-symbols-outlined">close</span>
     <div class="modal-content"></div>
   </div>
 

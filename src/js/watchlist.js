@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function initWatchlist() {
-    
+
     const savedMovies = getSavedMovies();
 
     displayWatchlist(savedMovies, "#saved-movies");
@@ -41,10 +41,15 @@ export function displayWatchlist(movies, sectionID) {
             e.stopPropagation();
 
             let savedMovies = getSavedMovies();
+            
             savedMovies = savedMovies.filter(m => m.id !== movie.id);
 
             saveToLocalStorage(savedMovies);
-            displayWatchlist();
+
+            const updatedMovies = getSavedMovies(); 
+
+            displayWatchlist(updatedMovies, "#saved-movies");
+            updateHomeWatchlist(); 
         });
 
         infoIcon.addEventListener("click", () => {
@@ -52,4 +57,18 @@ export function displayWatchlist(movies, sectionID) {
 
         });
     });
+}
+
+export function updateHomeWatchlist() {
+
+    const savedMovies = getSavedMovies();
+      const watchlistSection = document.querySelector("#watchlist-section");
+    
+      if (savedMovies.length === 0) {
+        watchlistSection.style.display = "none";
+      } else {
+        watchlistSection.style.display = "block";
+      }
+    
+      displayWatchlist(savedMovies, "#display-watchlist");
 }

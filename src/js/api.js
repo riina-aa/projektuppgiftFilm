@@ -14,7 +14,6 @@ export async function fetchMovies(endpoint) {
 
     const res = await fetch(`https://api.themoviedb.org/3/${endpoint}`, options);
     const data = await res.json();
-    console.log(data);
     return data.results;
 
   } catch (error) {

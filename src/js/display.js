@@ -1,14 +1,14 @@
-import { getSavedMovies, saveToLocalStorage } from "./main.js"; 
-import { displayWatchlist } from "./watchlist.js"; 
+import { getSavedMovies, saveToLocalStorage } from "./main.js";
+import { updateHomeWatchlist, displayWatchlist } from "./watchlist.js";
 import { fetchMovieDetails } from "./api.js";
 
 export function displayMovies(movies, sectionID) {
 
   let section = document.querySelector(sectionID);
 
-  if (!section) return; 
+  if (!section) return;
 
-  movies.slice(0, 7).forEach(movie => {
+  movies.slice(1, 8).forEach(movie => {
     const div = document.createElement("div");
     div.classList.add("movie-card");
 
@@ -48,7 +48,8 @@ export function displayMovies(movies, sectionID) {
       }
 
       saveToLocalStorage(savedMovies);
-      displayWatchlist();
+      displayWatchlist(savedMovies, "#saved-movies");
+      updateHomeWatchlist();
     });
 
     infoIcon.addEventListener("click", async () => {
@@ -64,10 +65,10 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
   const modalContent = document.querySelector(".modal-content");
 
   modalContent.innerHTML = `
+      <span class="closeIcon material-symbols-outlined">close</span>
       <div class="poster">
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
       </div>
-
       <div class="about">
         <h2>${movie.title}</h2>
         <div class="sub-menu">
@@ -75,9 +76,9 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
             <span class="star-icon material-symbols-outlined">star_rate</span>
             <p>${movie.vote_average}</p>
           </div>
-          <div class="submenuBtn submenu-items">
+          <div id="addIconBtn" class="submenuBtn submenu-items">
             <span class="add-icon material-symbols-outlined">bookmark_add</span>
-            <span>Lägg till på Watchlist</span>
+            <span class="icon-text">Lägg till i Watchlist</span>
           </div>
           <div id="playTrailerBtn" class="submenuBtn submenu-items">
             <span class="play-icon material-symbols-outlined">play_circle</span>
@@ -117,28 +118,40 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
       </div>
     `;
 
-  modal.appendChild(modalContent);
-
   modal.style.display = "block";
 
   const infoIcons = document.querySelectorAll(".reco-cards .infoIcon");
-  const modalBookmark = document.querySelector(".add-icon");
+  const bookmarkBtn = modalContent.querySelector("#addIconBtn");
+  const bookmarkIcon = modalContent.querySelector(".add-icon");
+  const bookmarkText = modalContent.querySelector(".icon-text");
 
-  modalBookmark.addEventListener("click", () => {
+  let savedMovies = getSavedMovies();
+  let exists = savedMovies.find(m => m.id === movie.id);
+
+  if (exists) {
+    bookmarkIcon.textContent = "bookmark_added";
+    bookmarkText.textContent = "Tillagd i Watchlist"
+  }
+
+  bookmarkBtn.addEventListener("click", () => {
+
     let savedMovies = getSavedMovies();
 
     const exists = savedMovies.find(m => m.id === movie.id);
 
     if (!exists) {
       savedMovies.push(movie);
-      modalBookmark.textContent = "bookmark_added";
+      bookmarkIcon.textContent = "bookmark_added";
+      bookmarkText.textContent = "Tillagd i Watchlist"
     } else {
       savedMovies = savedMovies.filter(m => m.id !== movie.id);
-      modalBookmark.textContent = "bookmark_add";
+      bookmarkIcon.textContent = "bookmark_add";
+      bookmarkText.textContent = "Lägg till i Watchlist";
     }
 
     saveToLocalStorage(savedMovies);
-    displayWatchlist(); 
+    displayWatchlist(savedMovies, "#saved-movies");
+    updateHomeWatchlist();
   });
 
   infoIcons.forEach(icon => {
@@ -165,7 +178,7 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
 
   });
 
-  const closeIcon = document.querySelector(".closeIcon");
+  const closeIcon = modalContent.querySelector(".closeIcon");
   closeIcon.addEventListener("click", () => {
     modal.style.display = "none";
   });

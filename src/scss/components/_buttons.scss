@@ -1,0 +1,23 @@
+@use "/src/scss/base/base"; 
+
+a.backBtn {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+
+    padding: 0.6rem 0.9rem;
+    max-width: fit-content;
+
+    background-color: base.$color-primary-blue;
+    border-radius: 15px;
+
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        background-color: base.$color-dark-blue;
+    }
+}
