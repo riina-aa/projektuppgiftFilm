@@ -1,77 +1,162 @@
 @use "../base/base";
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black;
+    font-family: base.$font;
+}
+
 nav {
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
     width: 100%;
     max-height: fit-content;
-    background-color: base.$color-primary-coral;
+    background-color: black;
     padding: 0.8rem 5rem;
 
-    label {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-        align-self: center;
-        align-content: center;
+    #logo {
         max-width: fit-content;
 
-        color: black;
-        font-size: base.$font-size-header;
-
-    }
-
-    div {
-        width: 60ch;
-        align-content: center;
-        position: relative;
-
-        input {
-            width: 100%;
-            height: 2.5em;
-            margin-right: 7rem;
-            padding: 0.3em 1.2em 0.3em 3.5em;
-
-            border: none;
-            border-radius: 20px;
-
-            font-family: base.$font;
-            color: black;
-
+        img {
+            padding: 1rem 2rem;
+            width: 325px;
+            height: auto;
+            display: block;
         }
     }
 
-    #search-icon {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-    }
-
-    .watchlist {
+    .menu {
         display: flex;
         flex-direction: row;
-        gap: 0.3rem;
+        gap: 2rem;
         align-items: center;
-        width: 250px;
 
-        border: none;
-        border-radius: 20px;
-        padding: 0.5rem 0.8rem;
-        background-color: base.$color-primary-coral;
+        label {
+            display: none;
 
-        a {
-            color: black;
-            font-size: base.$font-size-header;
-            text-decoration: none;
         }
 
+        .input-container {
+            max-width: fit-content;
+            align-content: center;
+            position: relative;
 
-        &:hover {
-            cursor: pointer;
-            background-color: base.$color-dark-coral;
+            input {
+                width: 100%;
+                height: 2.5em;
+                margin-right: 7rem;
+                padding: 0.3em 1.2em 0.3em 3.5em;
+
+                border: none;
+                border-radius: 20px;
+
+                font-family: base.$font;
+                color: black;
+
+            }
+        }
+
+        #search-icon {
+            position: absolute;
+            top: 6px;
+            left: 10px;
+        }
+
+        .watchlist {
+            display: flex;
+            flex-direction: row;
+            gap: 0.3rem;
+            align-items: center;
+            max-width: fit-content;
+            color: base.$color-primary-blue;
+            padding: 0.5rem 1rem 0.5rem 0.7rem;
+            border-radius: 20px;
+
+            a {
+                color: white;
+                font-size: base.$font-size-header;
+                text-decoration: none;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: rgba(128, 128, 128, 0.514)
+            }
+        }
+
+        .mode-toggle-container {
+            max-width: fit-content;
+
+            .mode-toggle {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 50px;
+                height: 25px;
+                background-color: base.$color-primary-green;
+                border-radius: 30px;
+                padding: 0px 2px;
+
+                .mode-icon {
+                    color: black;
+                    font-size: 21px;
+                }
+
+                .toggle-ball {
+                    width: 22px;
+                    height: 22px;
+                    background-color: base.$color-dark-green;
+                    position: absolute;
+                    right: 2px;
+                    border-radius: 50%;
+                    cursor: pointer;
+
+                }
+            }
         }
     }
+}
+
+.body.active {
+    background-color: #ECECEA;
+
+    h1,
+    h2 {
+        color: black;
+        margin-bottom: 2rem;
+    }
+}
+
+.nav.active {
+    background-color: #ECECEA;
+
+    .watchlist a {
+        color: black;
+    }
+
+}
+
+.modal {
+    .modal-content.active {
+        background-color: #ECECEA;
+        color: black;
+
+        .closeIcon {
+            color: black;
+        }
+    }
+}
+
+.toggle-ball.active {
+    left: 2px;
 }

@@ -12,7 +12,7 @@ section {
 
     h2 {
         color: white;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
     }
 }
 
@@ -41,8 +41,19 @@ section {
 
 
 .movie-card {
-    @include mixins.movie-card(170px, 40px);
+    @include mixins.movie-card(170px, 255px, 40px);
     flex: 0 0 auto;
+}
+
+.movie-card::after {
+    content: ""; 
+    position: absolute;
+    height: 101%;
+    width: 102%;
+    border-radius: 30px;
+    background: linear-gradient(to bottom right, #8CC640, #29AAE2);
+    filter:blur(8px);
+    z-index: -1;
 }
 
 .modal {
@@ -83,6 +94,7 @@ section {
         .poster {
             grid-column: 1;
             grid-row: 1 / 3;
+            height: 100;
 
             img {
                 width: 100%;
@@ -136,7 +148,7 @@ section {
 
             .actors {
                 display: flex;
-                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 0.7em;
                 font-size: base.$font-size-smalltext;
                 margin-top: 1rem;
@@ -179,7 +191,7 @@ section {
                 gap: 1rem;
 
                 .reco-card {
-                    @include mixins.movie-card(100px, 20px);
+                    @include mixins.movie-card(100px, 150px, 24px);
                 }
             }
         }
@@ -201,7 +213,7 @@ section {
         .reco-cards {
 
             .reco-card {
-                @include mixins.movie-card(130px, 28px);
+                @include mixins.movie-card(130px, 195px, 28px);
             }
         }
     }

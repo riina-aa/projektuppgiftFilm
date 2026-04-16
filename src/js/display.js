@@ -8,7 +8,7 @@ export function displayMovies(movies, sectionID) {
 
   if (!section) return;
 
-  movies.slice(1, 8).forEach(movie => {
+  movies.slice(0, 7).forEach(movie => {
     const div = document.createElement("div");
     div.classList.add("movie-card");
 
@@ -180,6 +180,13 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
 
   const closeIcon = modalContent.querySelector(".closeIcon");
   closeIcon.addEventListener("click", () => {
+
+    const iframe = modalContent.querySelector("iframe");
+    if (iframe) iframe.src = "";
+    
     modal.style.display = "none";
+    modalContent.classList.remove("show-trailer");
+    playText.textContent = "Spela trailer";
+    playIcon.textContent = "play_circle";
   });
 }

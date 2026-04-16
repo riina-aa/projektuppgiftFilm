@@ -16,23 +16,31 @@
 </head>
 
 <body>
-    <div id="logo"><a href="index.html"><img src="/public/images/logo.png" alt=""></a></div>
-    <header></header>
-    <nav>
-        <label for="search">
-            <span>Vad vill du titta på idag?</span>
-            <span class="material-symbols-outlined">arrow_forward</span>
-        </label>
-        <div>
-            <input type="text">
-            <span id="search-icon" class="material-symbols-outlined">search</span>
+      <nav class="nav">
+    <div id="logo">
+      <a class="logo-link" href="index.html">
+        <img src="/public/images/logo.png" alt="">
+      </a>
+    </div>
+    <div class="menu">
+      <label for="search">Sök:</label>
+      <div class="input-container">
+        <input type="text" id="search">
+        <span id="search-icon" class="material-symbols-outlined">search</span>
+      </div>
+      <div class="watchlist">
+        <span class="material-symbols-outlined">bookmark</span>
+        <a href="watchlist.html">Watchlist</a>
+      </div>
+      <div class="mode-toggle-container">
+        <div class="mode-toggle">
+          <span class="material-symbols-outlined mode-icon">dark_mode</span>
+          <span class="material-symbols-outlined mode-icon">light_mode</span>
+          <div class="toggle-ball"></div>
         </div>
-
-        <div class="watchlist">
-            <span class="material-symbols-outlined">bookmark_star</span>
-            <a href="watchlist.html">Watchlist</a>
-        </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 
     <section class="container">
         <h1>Filmer i din Watchlist:</h1>

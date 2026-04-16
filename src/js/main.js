@@ -20,7 +20,7 @@ let cachedMovies = [];
 
 async function initHome() {
 
-
+  toggleDarkLightMode();
   updateHomeWatchlist();
 
   const popular = await fetchMovies('movie/popular?language=en-US&with_original_language=en');
@@ -161,3 +161,23 @@ function toggleSearchSection(show) {
   searchSection.style.display = show ? "block" : "none";
 }
 
+export function toggleDarkLightMode() {
+
+  const toggleBar = document.querySelector(".toggle-ball");
+  const sections = document.querySelectorAll(".body, .nav, .modal-content, .toggle-ball");
+
+  toggleBar.addEventListener("click", () => {
+
+    const navImg = document.querySelector(".logo-link img")
+
+    if (navImg.src.includes("logo.png")) {
+      navImg.src = "/public/images/logo-black.png";
+    } else {
+      navImg.src = "/public/images/logo.png";
+    }
+
+    sections.forEach(section => {
+      section.classList.toggle("active");
+    })
+  })
+}
