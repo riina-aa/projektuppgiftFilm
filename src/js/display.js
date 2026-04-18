@@ -2,13 +2,13 @@ import { getSavedMovies, saveToLocalStorage } from "./main.js";
 import { updateHomeWatchlist, displayWatchlist } from "./watchlist.js";
 import { fetchMovieDetails } from "./api.js";
 
-export function displayMovies(movies, sectionID) {
+export function displayMovies(movies, sectionID, filter = 7) {
 
   let section = document.querySelector(sectionID);
 
   if (!section) return;
 
-  movies.slice(0, 7).forEach(movie => {
+  movies.slice(0, filter).forEach(movie => {
     const div = document.createElement("div");
     div.classList.add("movie-card");
 
@@ -63,6 +63,7 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
 
   const modal = document.querySelector(".modal");
   const modalContent = document.querySelector(".modal-content");
+  const title = movie.title || movie.name || "";
 
   modalContent.innerHTML = `
       <span class="closeIcon material-symbols-outlined">close</span>
@@ -70,7 +71,7 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
       </div>
       <div class="about">
-        <h2>${movie.title}</h2>
+        <h2>${title}</h2>
         <div class="sub-menu">
           <div class="submenu-items">
             <span class="star-icon material-symbols-outlined">star_rate</span>
@@ -103,11 +104,11 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
         </div>
       </div>
       <div class="recommendations">
-        <h3>Liknande filmer:</h3>
+        <h3>Liknande titlar:</h3>
         <div class="reco-cards">
           ${recommendations.map(movie => `
           <div class="reco-card">
-            <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+            <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${title}">
             <div class="overlay">
               <span class="addIcon material-symbols-outlined">bookmark_add</span>
               <span class="infoIcon material-symbols-outlined" data-id=${movie.id}>info</span>
@@ -176,6 +177,11 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
     playText.textContent = isOpen ? "Stäng trailer" : "Spela trailer";
     playIcon.textContent = isOpen ? "stop_circle" : "play_circle";
 
+    const iframe = modalContent.querySelector("iframe");
+    if (!isOpen && iframe) {
+    iframe.src = iframe.src; 
+  }
+
   });
 
   const closeIcon = modalContent.querySelector(".closeIcon");
@@ -183,7 +189,7 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
 
     const iframe = modalContent.querySelector("iframe");
     if (iframe) iframe.src = "";
-    
+
     modal.style.display = "none";
     modalContent.classList.remove("show-trailer");
     playText.textContent = "Spela trailer";

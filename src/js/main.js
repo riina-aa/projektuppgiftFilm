@@ -25,6 +25,7 @@ async function initHome() {
 
   const popular = await fetchMovies('movie/popular?language=en-US&with_original_language=en');
   displayMovies(popular, "#popular");
+  console.log(popular);
 
   const cozy = await fetchMovies('discover/movie?with_genres=35,10749&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
   displayMovies(cozy, "#cozy");
@@ -35,12 +36,18 @@ async function initHome() {
   const drama = await fetchMovies('discover/movie?with_genres=18&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
   displayMovies(drama, "#drama");
 
+  const series = await fetchMovies('discover/tv?language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  displayMovies(series, "#series");
+
   cachedMovies = [
     ...popular,
     ...cozy,
     ...action,
-    ...drama
+    ...drama,
+    ...series
   ];
+
+  displayMovies(cachedMovies, "#all", 21);
 
   search();
 

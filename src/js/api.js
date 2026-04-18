@@ -26,6 +26,8 @@ export async function fetchMovies(endpoint) {
 
 export async function fetchMovieDetails(movie) {
 
+  const title = movie.title || movie.name || "";
+
   const options = {
     method: 'GET',
     headers: {
@@ -39,7 +41,7 @@ export async function fetchMovieDetails(movie) {
     const castData = await castResponse.json();
     const topCast = castData.cast.slice(0, 4);
 
-    const trailerResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(movie.title + " trailer")}&type=video&key=AIzaSyAVuczGe0Fjxem02s7Y1fM9t-Dcc0ZnVeA`);
+    const trailerResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(title + " trailer")}&type=video&key=AIzaSyAVuczGe0Fjxem02s7Y1fM9t-Dcc0ZnVeA`);
     const trailerData = await trailerResponse.json();
     const videoID = trailerData.items[0].id.videoId;
 

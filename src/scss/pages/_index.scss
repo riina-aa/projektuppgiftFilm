@@ -1,5 +1,6 @@
 @use "/src/scss/base/base";
 @use "/src/scss/components/mixins";
+@use "/src/scss/base/animations";
 
 section {
     padding: 3rem 4rem;
@@ -11,6 +12,7 @@ section {
     }
 
     h2 {
+        font-size: base.$font-size-h2;
         color: white;
         margin-bottom: 2rem;
     }
@@ -43,17 +45,89 @@ section {
 .movie-card {
     @include mixins.movie-card(170px, 255px, 40px);
     flex: 0 0 auto;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.9s ease forwards;
+}
+
+.movie-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.movie-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.movie-card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.movie-card:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.movie-card:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.movie-card:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.movie-card:nth-child(7) {
+    animation-delay: 0.35s;
 }
 
 .movie-card::after {
-    content: ""; 
+    content: "";
     position: absolute;
     height: 101%;
     width: 102%;
     border-radius: 30px;
     background: linear-gradient(to bottom right, #8CC640, #29AAE2);
-    filter:blur(8px);
+    filter: blur(8px);
     z-index: -1;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    margin-bottom: 3rem;
+    margin-top: -1em;
+}
+
+.custom-select {
+    position: relative;
+    z-index: 1;
+    max-width: fit-content;
+
+    .options {
+        display: none;
+        position: absolute;
+        z-index: -1;
+        color: white;
+        font-size: base.$font-size-buttons;
+        background-color: base.$color-button-grey-opacity;
+        
+        top: 50%;
+        width: 100%; 
+
+        padding-top: 1.8em;
+        padding-bottom: 0.5em;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+
+        .option {
+            padding: 0.5em 1em;
+
+            &:hover {
+                background-color: base.$color-button-grey;
+            }
+        }
+    }
+
+    
 }
 
 .modal {
@@ -64,8 +138,6 @@ section {
     width: 100%;
     height: 100%;
     background-color: rgba($color: base.$color-primary-coral, $alpha: 0.7);
-
-
 
     .modal-content {
         display: grid;
@@ -130,10 +202,15 @@ section {
                 .submenuBtn {
                     padding: 0.3rem 0.7rem 0.3rem 0.5rem;
                     border-radius: 15px;
+                    font-size: base.$font-size-buttons;
 
                     &:hover {
                         background-color: rgba(128, 128, 128, 0.514);
                         cursor: pointer;
+                    }
+
+                    &:active {
+                        transform: scale(0.95);
                     }
                 }
 

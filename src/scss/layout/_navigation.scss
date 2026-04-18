@@ -9,6 +9,7 @@
 body {
     background-color: black;
     font-family: base.$font;
+    transition: background-color 1s ease, color 1s ease;
 }
 
 nav {
@@ -20,13 +21,13 @@ nav {
     width: 100%;
     max-height: fit-content;
     background-color: black;
-    padding: 0.8rem 5rem;
+    padding: 1.5rem 3rem;
+    transition: background-color 1s ease, color 1s ease;
 
     #logo {
         max-width: fit-content;
 
         img {
-            padding: 1rem 2rem;
             width: 325px;
             height: auto;
             display: block;
@@ -90,6 +91,10 @@ nav {
                 cursor: pointer;
                 background-color: rgba(128, 128, 128, 0.514)
             }
+
+            &:active {
+                transform: scale(0.95);
+            }
         }
 
         .mode-toggle-container {
@@ -120,7 +125,7 @@ nav {
                     right: 2px;
                     border-radius: 50%;
                     cursor: pointer;
-
+                    transition: transform 1s ease;
                 }
             }
         }
@@ -158,5 +163,5 @@ nav {
 }
 
 .toggle-ball.active {
-    left: 2px;
+    transform: translateX(-23px);
 }

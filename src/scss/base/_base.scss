@@ -11,11 +11,17 @@ $color-dark-coral: color.scale(#F26F6F, $lightness: -5%);
 $color-dark-blue: color.scale(#29AAE2, $lightness: -25%);
 $color-dark-green: color.scale(#8cc640, $lightness: -50%);
 
+//Secondary
+$color-button-grey: rgb(88, 88, 88);
+$color-button-grey-opacity: rgba(128, 128, 128, 0.9); 
+
 //Font
 $font: "Poppins", sans-serif; 
 
 //Fontstorlekar
 $font-size-headerh1: 48px;
+$font-size-h2: 36px;
 $font-size-header: 18px;
 $font-size-smalltext: 12px;
 $font-size-modalheader: 38px;
+$font-size-buttons: 14px;
