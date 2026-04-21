@@ -17,39 +17,111 @@ export function saveToLocalStorage(movies) {
 }
 
 let cachedMovies = [];
+let currentType = "movie";
+let currentGenre = null;
 
 async function initHome() {
 
   toggleDarkLightMode();
   updateHomeWatchlist();
+  displayGenres();
 
-  const popular = await fetchMovies('movie/popular?language=en-US&with_original_language=en');
+  const popularData = await fetchMovies('movie/popular?language=en-US&with_original_language=en');
+  const popular = popularData.map(m => ({ ...m, media_type: "movie" }));
   displayMovies(popular, "#popular");
-  console.log(popular);
 
-  const cozy = await fetchMovies('discover/movie?with_genres=35,10749&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const cozyData = await fetchMovies('discover/movie?with_genres=35,10749&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const cozy = cozyData.map(m => ({ ...m, media_type: "movie" }));
   displayMovies(cozy, "#cozy");
 
-  const action = await fetchMovies('discover/movie?with_genres=28&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const actionData = await fetchMovies('discover/movie?with_genres=28&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const action = actionData.map(m => ({ ...m, media_type: "movie" }));
   displayMovies(action, "#action");
 
-  const drama = await fetchMovies('discover/movie?with_genres=18&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const dramaData = await fetchMovies('discover/movie?with_genres=18&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const drama = dramaData.map(m => ({ ...m, media_type: "movie" }));
   displayMovies(drama, "#drama");
 
-  const series = await fetchMovies('discover/tv?language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesData = await fetchMovies('discover/tv?language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const series = seriesData.map(m => ({ ...m, media_type: "tv" }));
   displayMovies(series, "#series");
+
+  const seriesActionData = await fetchMovies('discover/tv?with_genres=10759&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesAction = seriesActionData.map(m => ({ ...m, media_type: "tv" }));
+
+  const seriesComedyData = await fetchMovies('discover/tv?with_genres=35&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesComedy = seriesComedyData.map(m => ({ ...m, media_type: "tv" }));
+
+  const seriesDramaData = await fetchMovies('discover/tv?with_genres=18&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesDrama = seriesDramaData.map(m => ({ ...m, media_type: "tv" }));
+
+  const seriesCrimeData = await fetchMovies('discover/tv?with_genres=80&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesCrime = seriesCrimeData.map(m => ({ ...m, media_type: "tv" }));
+
+  const seriesSciFiData = await fetchMovies('discover/tv?with_genres=10765&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesSciFi = seriesSciFiData.map(m => ({ ...m, media_type: "tv" }));
+
+  const seriesAnimationData = await fetchMovies('discover/tv?with_genres=16&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesAnimation = seriesAnimationData.map(m => ({ ...m, media_type: "tv" }));
+
+  const seriesFamilyData = await fetchMovies('discover/tv?with_genres=10751&language=en-US&with_original_language=en&sort_by=popularity.desc&vote_count.gte=150');
+  const seriesFamily = seriesFamilyData.map(m => ({ ...m, media_type: "tv" }));
 
   cachedMovies = [
     ...popular,
     ...cozy,
     ...action,
     ...drama,
-    ...series
+    ...series,
+    ...seriesAction,
+    ...seriesComedy,
+    ...seriesDrama,
+    ...seriesCrime,
+    ...seriesSciFi,
+    ...seriesAnimation,
+    ...seriesFamily
   ];
 
   displayMovies(cachedMovies, "#all", 21);
-
+  filterContent();
   search();
+
+  const movieBtn = document.querySelector("#movieBtn");
+  const tvBtn = document.querySelector("#tvBtn");
+  const selectCategory = document.querySelector("#select-btn");
+  const options = document.querySelector(".options");
+
+  movieBtn.addEventListener("click", () => {
+
+    tvBtn.classList.remove("active");
+    movieBtn.classList.toggle("active");
+
+    currentType = "movie";
+    currentGenre = null;
+    displayGenres();
+    filterContent();
+  })
+
+  tvBtn.addEventListener("click", () => {
+
+    movieBtn.classList.remove("active");
+    tvBtn.classList.toggle("active");
+
+    currentType = "tv";
+    currentGenre = null;
+    displayGenres();
+    filterContent();
+  })
+
+  selectCategory.addEventListener("click", () => {
+    options.classList.toggle("open");
+  })
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".custom-select")) {
+      options.classList.remove("open");
+    }
+  });
 
 };
 
@@ -187,4 +259,123 @@ export function toggleDarkLightMode() {
       section.classList.toggle("active");
     })
   })
+}
+
+function filterContent() {
+
+  const onlyOneMovie = Array.from(
+    new Map(cachedMovies.map(item => [item.id, item])).values()
+  );
+
+  let filtered = onlyOneMovie;
+
+  if (currentType) {
+    filtered = filtered.filter(item => item.media_type === currentType);
+  }
+
+  if (currentGenre) {
+    filtered = filtered.filter(item =>
+      item.genre_ids.includes(Number(currentGenre))
+    );
+  }
+
+  displayMovies(filtered, "#all", 21);
+
+  updateSelectedOption();
+}
+
+function updateSelectedOption() {
+
+  const categoryOption = document.querySelectorAll(".option")
+
+  categoryOption.forEach(option => {
+
+    const value = option.dataset.value;
+
+    let isActive;
+
+    if (value === "all" && !currentGenre) {
+      isActive = true;
+    } else if (value === String(currentGenre)) {
+      isActive = true;
+    } else {
+      isActive = false;
+    }
+
+    option.classList.toggle("selected-option", isActive);
+  });
+};
+
+const movieGenres = {
+  28: "Action",
+  35: "Comedy",
+  18: "Drama",
+  27: "Horror",
+  878: "Sci-Fi",
+  10749: "Romance"
+};
+
+const tvGenres = {
+  10759: "Action & Adventure",
+  35: "Comedy",
+  18: "Drama",
+  80: "Crime",
+  10765: "Sci-Fi & Fantasy",
+  16: "Animation",
+  10751: "Family"
+};
+
+function getActiveGenreMap() {
+  if (currentType === "tv") {
+    return tvGenres;
+  } else {
+    return movieGenres;
+  }
+};
+
+function displayGenres() {
+
+  const genres = getActiveGenreMap();
+  const optionsBox = document.querySelector(".options");
+
+  optionsBox.innerHTML = `
+    <div class="option" data-value="all">Alla kategorier</div>
+    ${Object.entries(genres).map(([id, name]) => `
+      <div class="option" data-value="${id}">${name}</div>
+    `).join("")}
+  `;
+
+  attachGenreEvents();
+}
+
+function attachGenreEvents() {
+
+  const categoryOptions = document.querySelectorAll(".option");
+  const options = document.querySelector(".options");
+  const selectedLabel = document.querySelector(".selected");
+
+  categoryOptions.forEach(option => {
+
+    option.addEventListener("click", () => {
+
+      const value = option.dataset.value;
+
+      if (value === "all") {
+        currentGenre = null;
+      } else {
+        currentGenre = value;
+      }
+
+      if (value === "all") {
+        selectedLabel.textContent = "Kategorier";
+      } else {
+        selectedLabel.textContent = option.textContent;
+      }
+
+      options.classList.remove("open");
+
+      filterContent();
+    });
+
+  });
 }

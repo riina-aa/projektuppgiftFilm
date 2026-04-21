@@ -38,6 +38,11 @@ a.backBtn {
 
     border: none;
     border-radius: 50px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: base.$color-dark-grey;
+    }
 }
 
 .filterBtn.active {
@@ -64,5 +69,9 @@ a.backBtn {
 
     span {
         font-size: base.$font-size-buttons;
+    }
+
+    &:hover {
+        cursor: pointer;
     }
 }

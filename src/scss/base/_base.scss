@@ -15,6 +15,9 @@ $color-dark-green: color.scale(#8cc640, $lightness: -50%);
 $color-button-grey: rgb(88, 88, 88);
 $color-button-grey-opacity: rgba(128, 128, 128, 0.9); 
 
+//Secondary variationer
+$color-dark-grey: color.scale(rgb(88, 88, 88), $lightness: -25%);
+
 //Font
 $font: "Poppins", sans-serif; 
 

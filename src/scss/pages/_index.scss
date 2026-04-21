@@ -109,9 +109,9 @@ section {
         color: white;
         font-size: base.$font-size-buttons;
         background-color: base.$color-button-grey-opacity;
-        
+
         top: 50%;
-        width: 100%; 
+        width: 100%;
 
         padding-top: 1.8em;
         padding-bottom: 0.5em;
@@ -123,12 +123,22 @@ section {
 
             &:hover {
                 background-color: base.$color-button-grey;
+                cursor: pointer;
             }
         }
     }
 
-    
+    .options.open {
+        display: block;
+
+        .option.selected-option {
+            background-color: base.$color-primary-green;
+            color: black;
+        }
+    }
 }
+
+
 
 .modal {
     display: none;
@@ -180,10 +190,28 @@ section {
             padding: 2rem;
             max-height: fit-content;
 
-            h2 {
-                font-size: base.$font-size-modalheader;
-                margin-bottom: 1rem;
+            .title-type {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                padding-right: 2rem;
+
+                h2 {
+                    font-size: base.$font-size-modalheader;
+                }
+
+                button {
+                    background-color: base.$color-primary-coral;
+                    padding: 0.4em 1em;
+                    max-width: fit-content;
+                    border: none;
+                    border-radius: 15px;
+                }
+
             }
+
+
 
             .sub-menu {
                 display: flex;

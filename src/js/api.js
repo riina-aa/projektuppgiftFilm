@@ -1,5 +1,6 @@
 import { displayModal } from "./display.js";
 
+
 export async function fetchMovies(endpoint) {
 
   const options = {
@@ -26,7 +27,8 @@ export async function fetchMovies(endpoint) {
 
 export async function fetchMovieDetails(movie) {
 
-  const title = movie.title || movie.name || "";
+  const title = movie.title || movie.name || "Titel saknas";
+  const type = movie.media_type; 
 
   const options = {
     method: 'GET',
@@ -37,7 +39,7 @@ export async function fetchMovieDetails(movie) {
   };
 
   try {
-    const castResponse = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/credits?&language=en-US`, options);
+    const castResponse = await fetch(`https://api.themoviedb.org/3/${type}/${movie.id}/credits?&language=en-US`, options);
     const castData = await castResponse.json();
     const topCast = castData.cast.slice(0, 4);
 
@@ -45,7 +47,7 @@ export async function fetchMovieDetails(movie) {
     const trailerData = await trailerResponse.json();
     const videoID = trailerData.items[0].id.videoId;
 
-    const similarRes = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/recommendations?language=en-US&page=1`, options);
+    const similarRes = await fetch(`https://api.themoviedb.org/3/${type}/${movie.id}/recommendations?language=en-US&page=1`, options);
     const similarData = await similarRes.json();
     const similarMovies = similarData.results.slice(0, 5);
 

@@ -8,6 +8,8 @@ export function displayMovies(movies, sectionID, filter = 7) {
 
   if (!section) return;
 
+  section.innerHTML = "";
+
   movies.slice(0, filter).forEach(movie => {
     const div = document.createElement("div");
     div.classList.add("movie-card");
@@ -71,7 +73,10 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
       </div>
       <div class="about">
-        <h2>${title}</h2>
+        <div class="title-type">
+          <h2>${title}</h2>
+          <button>${getMediaLabel(movie.media_type)}</button>
+        </div>
         <div class="sub-menu">
           <div class="submenu-items">
             <span class="star-icon material-symbols-outlined">star_rate</span>
@@ -174,13 +179,18 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
 
     const isOpen = modalContent.classList.contains("show-trailer");
 
-    playText.textContent = isOpen ? "Stäng trailer" : "Spela trailer";
-    playIcon.textContent = isOpen ? "stop_circle" : "play_circle";
+    if (isOpen) {
+      playText.textContent = "Stäng trailer";
+      playIcon.textContent = "stop_circle";
+    } else {
+      playText.textContent = "Spela trailer";
+      playIcon.textContent = "play_circle";
+    }
 
     const iframe = modalContent.querySelector("iframe");
     if (!isOpen && iframe) {
-    iframe.src = iframe.src; 
-  }
+      iframe.src = iframe.src;
+    }
 
   });
 
@@ -195,4 +205,11 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
     playText.textContent = "Spela trailer";
     playIcon.textContent = "play_circle";
   });
+}
+
+function getMediaLabel(type) {
+
+  if (type === "tv") return "Serie";
+  if (type === "movie") return "Film";
+
 }
