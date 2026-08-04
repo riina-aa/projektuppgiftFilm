@@ -53,7 +53,15 @@ export function displayWatchlist(movies, sectionID) {
         });
 
         infoIcon.addEventListener("click", () => {
-            fetchMovieDetails(movie);
+            
+          const movieDetails = await fetchMovieDetails(movie); 
+
+          displayMovieJournal(
+            movieDetails.movie, 
+            movieDetails.topCast, 
+            movieDetails.videoId, 
+            movieDetails.similarMovies
+          );
 
         });
     });
@@ -63,6 +71,8 @@ export function updateHomeWatchlist() {
 
     const savedMovies = getSavedMovies();
       const watchlistSection = document.querySelector("#watchlist-section");
+      
+      if (!watchlistSection) return;
     
       if (savedMovies.length === 0) {
         watchlistSection.style.display = "none";

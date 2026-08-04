@@ -51,7 +51,12 @@ export async function fetchMovieDetails(movie) {
     const similarData = await similarRes.json();
     const similarMovies = similarData.results.slice(0, 5);
 
-    displayModal(movie, topCast, videoID, similarMovies);
+    return {
+      movie,
+      topCast, 
+      videoId, 
+      similarMovies
+    }
 
   } catch (error) {
     console.error("Failed:", error);

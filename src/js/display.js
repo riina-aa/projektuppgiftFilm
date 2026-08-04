@@ -41,7 +41,13 @@ export function displayMovies(movies, sectionID, filter = 7) {
       const exists = savedMovies.find(m => m.id === movie.id);
 
       if (!exists) {
-        savedMovies.push(movie);
+        savedMovies.push({
+          ...movie,
+          status: "want",
+          userRating: 0,
+          comment: "",
+          summary: ""
+        });
         bookmarkIcon.textContent = "bookmark_added";
 
       } else {
@@ -55,7 +61,15 @@ export function displayMovies(movies, sectionID, filter = 7) {
     });
 
     infoIcon.addEventListener("click", async () => {
-      fetchMovieDetails(movie);
+      
+      const movieDetails = await fetchMovieDetails(movie); 
+      
+      displayModal(
+        movieDetails.movie,
+        movieDetails.topCast, 
+        movieDetails.videoId,
+        movieDetails.similarMovies
+      );
     });
 
   });
@@ -146,9 +160,17 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
     const exists = savedMovies.find(m => m.id === movie.id);
 
     if (!exists) {
-      savedMovies.push(movie);
+      savedMovies.push({
+        ...movie,
+        status: "want",
+        userRating: 0,
+        comment: "",
+        summary: ""
+      })
+
       bookmarkIcon.textContent = "bookmark_added";
-      bookmarkText.textContent = "Tillagd i Watchlist"
+      bookmarkText.textContent = "Tillagd i Watchlist";
+
     } else {
       savedMovies = savedMovies.filter(m => m.id !== movie.id);
       bookmarkIcon.textContent = "bookmark_add";
