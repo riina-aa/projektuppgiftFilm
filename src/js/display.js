@@ -65,7 +65,7 @@ export function displayMovies(movies, sectionID, filter = 7) {
       const movieDetails = await fetchMovieDetails(movie); 
       
       displayModal(
-        movieDetails.movie,
+        movie,
         movieDetails.topCast, 
         movieDetails.videoId,
         movieDetails.similarMovies
@@ -229,7 +229,7 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
   });
 }
 
-function getMediaLabel(type) {
+export function getMediaLabel(type) {
 
   if (type === "tv") return "Serie";
   if (type === "movie") return "Film";

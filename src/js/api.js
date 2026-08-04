@@ -54,7 +54,7 @@ export async function fetchMovieDetails(movie) {
     return {
       movie,
       topCast, 
-      videoId, 
+      videoID, 
       similarMovies
     }
 
