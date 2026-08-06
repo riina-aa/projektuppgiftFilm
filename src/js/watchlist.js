@@ -136,19 +136,18 @@ function displayMovieJournal(movie, cast, trailerID, recommendations) {
               <button 
                 class="rating-star ${number <= rating ? "active" : ""}"
                 data-rating="${number}">
-                <span class="material-symbols-outlined">
+                <span id="star" class="material-symbols-outlined">
                   star
                 </span>
               </button>
             `).join("")}
           </div>
           <div class="comment">
-            <label for="movie-comment">Vad tyckte du?</label>
-            <textarea id="movie-comment" placeholder="Vad gillade du? Älskade? Hatade? Fanns det något som fastnade?">${comment}</textarea>
+            <label for="movie-comment"><h4>Din kommentar</h4></label>
+            <textarea id="movie-comment" rows="3" placeholder="Vad gillade du? Älskade? Hatade? Fanns det något som fastnade?">${comment}</textarea>
           </div>
           <div class="journal-buttons">
-            <button class="save-journal">Spara journal</button>
-            <button class="cancel-journal">Avbryt</button>            
+            <button class="save-journal">Spara journal</button>           
           </div>
         </div>
       `;
@@ -177,6 +176,33 @@ function displayMovieJournal(movie, cast, trailerID, recommendations) {
 
   ratingStars.forEach(star => {
 
+    star.addEventListener("mouseenter", () => {
+
+      const hoverRating = Number(star.dataset.rating);
+
+      ratingStars.forEach(item => {
+
+        const itemRating = Number(item.dataset.rating);
+
+        if (itemRating <= hoverRating) {
+          item.classList.add("hover");
+        } else {
+          item.classList.remove("hover");
+        }
+
+      });
+
+    });
+
+
+    star.addEventListener("mouseleave", () => {
+
+      ratingStars.forEach(item => {
+        item.classList.remove("hover");
+      });
+
+    });
+
     star.addEventListener("click", () => {
 
       selectedRating = Number(star.dataset.rating);
@@ -198,7 +224,7 @@ function displayMovieJournal(movie, cast, trailerID, recommendations) {
 
   const saveButton = modalContent.querySelector(".save-journal");
 
-saveButton.addEventListener("click", function () {
+  saveButton.addEventListener("click", function () {
 
     const commentInput = modalContent.querySelector("#movie-comment");
     const commentValue = commentInput.value;
@@ -210,26 +236,30 @@ saveButton.addEventListener("click", function () {
 
     for (let i = 0; i < movies.length; i++) {
 
-        const savedMovie = movies[i];
+      const savedMovie = movies[i];
 
-        if (savedMovie.id === movie.id) {
-            movieIndex = i;
-            break;
-        }
+      if (savedMovie.id === movie.id) {
+        movieIndex = i;
+        break;
+      }
     }
 
     if (movieIndex !== -1) {
 
-        const savedMovie = movies[movieIndex];
+      const savedMovie = movies[movieIndex];
 
-        savedMovie.status = selectedStatus;
-        savedMovie.rating = selectedRating;
-        savedMovie.comment = comment;
+      savedMovie.status = selectedStatus;
+      savedMovie.rating = selectedRating;
+      savedMovie.comment = comment;
 
-        saveToLocalStorage(movies);
+      saveToLocalStorage(movies);
     }
 
-});
+    saveButton.textContent = "Sparat!";
+    setTimeout(() => {
+      saveButton.textContent = "Spara journal";
+    }, 2000);
+  });
 
   const infoIcons = document.querySelectorAll(".reco-cards .infoIcon");
   const bookmarkBtn = modalContent.querySelector("#addIconBtn");
