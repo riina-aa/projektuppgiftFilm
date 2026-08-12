@@ -1,8 +1,10 @@
 import { getSavedMovies, saveToLocalStorage } from "./main.js";
-import { updateHomeWatchlist, displayWatchlist } from "./watchlist.js";
+import { addJournalData, updateHomeWatchlist, displayWatchlist } from "./watchlist.js";
 import { fetchMovieDetails } from "./api.js";
 
 export function displayMovies(movies, sectionID, filter = 7) {
+
+  movies = addJournalData(movies);
 
   let section = document.querySelector(sectionID);
 
@@ -17,8 +19,13 @@ export function displayMovies(movies, sectionID, filter = 7) {
     div.innerHTML = `
       <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
       <div class="overlay">
-        <span class="addIcon material-symbols-outlined">bookmark_add</span>
-        <span class="infoIcon material-symbols-outlined">info</span>
+        <div class="movie-status">
+          <span>${getStatusText(movie.status)}</span>
+        </div>
+        <div class="default-icons">
+          <span class="addIcon material-symbols-outlined">bookmark_add</span>
+          <span class="infoIcon material-symbols-outlined">info</span>
+        </div>
       </div>
       `;
 
@@ -234,4 +241,25 @@ export function getMediaLabel(type) {
   if (type === "tv") return "Serie";
   if (type === "movie") return "Film";
 
+}
+
+export function getStatusText(status) {
+
+    if (status === "must") {
+        return "Måste se 🔥";
+    }
+
+    if (status === "want") {
+        return "Vill se 👀";
+    }
+
+    if (status === "started") {
+        return "Påbörjad ▶️";
+    }
+
+    if (status === "seen") {
+        return "Sedd ✅";
+    }
+
+    return "";
 }

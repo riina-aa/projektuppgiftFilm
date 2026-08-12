@@ -1,5 +1,5 @@
 
-import { updateHomeWatchlist } from "./watchlist.js";
+import { addJournalData, updateHomeWatchlist } from "./watchlist.js";
 import { fetchMovies, fetchMovieDetails } from "./api.js";
 import { displayMovies } from "./display.js";
 
@@ -84,7 +84,7 @@ async function initHome() {
 
   displayMovies(cachedMovies, "#all", 21);
   filterContent();
-  search();
+  search(); 
 
   const movieBtn = document.querySelector("#movieBtn");
   const tvBtn = document.querySelector("#tvBtn");

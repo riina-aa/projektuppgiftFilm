@@ -1,3 +1,5 @@
+@use "/src/scss/base/base";
+
 @mixin movie-card($width, $height, $iconSize) {
 
     position: relative;
@@ -17,9 +19,8 @@
 
     .overlay {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: end;
 
         position: absolute;
         top: 0;
@@ -34,19 +35,39 @@
         opacity: 0;
         transition: opacity 0.3s;
 
-        span {
-            font-size: $iconSize;
+        .movie-status {
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            background-color: base.$color-grey-opacity;
+            border-radius: 15px;
             color: white;
-            cursor: pointer;
-            transition: transform 0.3s;
+        }
 
-            &:hover {
-                transform: scale(1.1);
+        .default-icons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: end;
+            height: 40px;
+
+            .addIcon,
+            .infoIcon {
+                font-size: $iconSize;
+                color: white;
+                cursor: pointer;
+                transition: transform 0.3s;
+
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+
+                &:active {
+                    transform: scale(0.8);
+                }
             }
 
-            &:active {
-                transform: scale(0.8);
-            }
         }
 
         &:hover {

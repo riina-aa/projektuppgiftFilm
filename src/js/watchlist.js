@@ -1,6 +1,6 @@
 import { getSavedMovies, saveToLocalStorage } from "./main.js";
 import { fetchMovieDetails } from "./api.js";
-import { getMediaLabel } from "./display.js"
+import { getMediaLabel, getStatusText } from "./display.js"
 
 document.addEventListener("DOMContentLoaded", () => {
   initWatchlist();
@@ -28,8 +28,13 @@ export function displayWatchlist(movies, sectionID) {
     div.innerHTML = `
       <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
       <div class="overlay">
-        <span class="addIcon material-symbols-outlined">bookmark_added</span>
-        <span class="infoIcon material-symbols-outlined">info</span>
+        <div class="movie-status">
+          <span>${getStatusText(movie.status)}</span>
+        </div>
+        <div class="default-icons">
+          <span class="addIcon material-symbols-outlined">bookmark_remove</span>
+          <span class="infoIcon material-symbols-outlined">info</span>
+        </div>
       </div>
       `;
 
@@ -39,6 +44,7 @@ export function displayWatchlist(movies, sectionID) {
     const bookmarkIcon = div.querySelector(".addIcon");
 
     bookmarkIcon.addEventListener("click", (e) => {
+      
       e.stopPropagation();
 
       let savedMovies = getSavedMovies();
@@ -249,7 +255,7 @@ function displayMovieJournal(movie, cast, trailerID, recommendations) {
       const savedMovie = movies[movieIndex];
 
       savedMovie.status = selectedStatus;
-      savedMovie.rating = selectedRating;
+      savedMovie.userRating = selectedRating;
       savedMovie.comment = comment;
 
       saveToLocalStorage(movies);
@@ -347,6 +353,29 @@ function displayMovieJournal(movie, cast, trailerID, recommendations) {
     playText.textContent = "Spela trailer";
     playIcon.textContent = "play_circle";
   });
+}
+
+export function addJournalData(movies) {
+
+    const savedMovies = getSavedMovies();
+
+    return movies.map(movie => {
+
+        const savedMovie = savedMovies.find(
+            saved => saved.id === movie.id
+        );
+
+        if (savedMovie) {
+            return {
+                ...movie,
+                status: savedMovie.status,
+                rating: savedMovie.userRating,
+                comment: savedMovie.comment
+            };
+        }
+
+        return movie;
+    });
 }
 
 export function updateHomeWatchlist() {
