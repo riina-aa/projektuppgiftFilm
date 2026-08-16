@@ -68,8 +68,8 @@ export function displayMovies(movies, sectionID, filter = 7) {
     });
 
     infoIcon.addEventListener("click", async () => {
-      
-      const movieDetails = await fetchMovieDetails(movie); 
+
+      const movieDetails = await fetchMovieDetails(movie);
       
       displayModal(
         movie,
@@ -82,7 +82,7 @@ export function displayMovies(movies, sectionID, filter = 7) {
   });
 };
 
-export async function displayModal(movie, cast, trailerID, recommendations) {
+export function displayModal(movie, cast, trailerID, recommendations) {
 
   const modal = document.querySelector(".modal");
   const modalContent = document.querySelector(".modal-content");
@@ -136,8 +136,13 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
           <div class="reco-card">
             <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${title}">
             <div class="overlay">
-              <span class="addIcon material-symbols-outlined">bookmark_add</span>
-              <span class="infoIcon material-symbols-outlined" data-id=${movie.id}>info</span>
+              <div class="movie-status">
+                <span>${getStatusText(movie.status)}</span>
+              </div>
+              <div class="default-icons">
+                <span class="addIcon material-symbols-outlined">bookmark_add</span>
+                <span class="infoIcon material-symbols-outlined" data-id=${movie.id}>info</span>
+              </div>
             </div>
           </div>
           `).join("")}
@@ -190,12 +195,20 @@ export async function displayModal(movie, cast, trailerID, recommendations) {
   });
 
   infoIcons.forEach(icon => {
-    icon.addEventListener("click", () => {
+    icon.addEventListener("click", async () => {
 
       const movieId = icon.dataset.id;
+
       const selectedMovie = recommendations.find(m => m.id == movieId);
 
-      fetchMovieDetails(selectedMovie);
+      const movieDetails = await fetchMovieDetails(selectedMovie);
+
+      displayModal(
+        selectedMovie,
+        movieDetails.topCast,
+        movieDetails.videoId,
+        movieDetails.similarMovies
+      );
     });
   });
 
@@ -245,21 +258,21 @@ export function getMediaLabel(type) {
 
 export function getStatusText(status) {
 
-    if (status === "must") {
-        return "Måste se 🔥";
-    }
+  if (status === "must") {
+    return "Måste se 🔥";
+  }
 
-    if (status === "want") {
-        return "Vill se 👀";
-    }
+  if (status === "want") {
+    return "Vill se 👀";
+  }
 
-    if (status === "started") {
-        return "Påbörjad ▶️";
-    }
+  if (status === "started") {
+    return "Påbörjad ▶️";
+  }
 
-    if (status === "seen") {
-        return "Sedd ✅";
-    }
+  if (status === "seen") {
+    return "Sedd ✅";
+  }
 
-    return "";
+  return "";
 }

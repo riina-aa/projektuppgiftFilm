@@ -85,6 +85,7 @@ async function initHome() {
   displayMovies(cachedMovies, "#all", 21);
   filterContent();
   search(); 
+  mobileSearch();
 
   const movieBtn = document.querySelector("#movieBtn");
   const tvBtn = document.querySelector("#tvBtn");
@@ -154,6 +155,27 @@ function search() {
     console.log(result);
   });
 };
+
+export function mobileSearch() {
+
+    const searchInput = document.querySelector("#search");
+    const searchIcon = document.querySelector("#search-icon");
+    const nav = document.querySelector(".nav");
+
+    searchIcon.addEventListener("click", () => {
+
+        nav.classList.add("search-active");
+
+        searchInput.focus();
+
+    });
+
+    searchInput.addEventListener("blur", () => {
+
+        nav.classList.remove("search-active");
+
+    });
+}
 
 function displaySearchResults(results, query) {
 

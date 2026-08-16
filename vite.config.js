@@ -7,8 +7,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: resolve(__dirname, "index.html"),
-                favorites: resolve(__dirname, "favorites.html"),
-                watched: resolve(__dirname, "watched.html")
+                watched: resolve(__dirname, "watchlist.html")
             }
         }
     },

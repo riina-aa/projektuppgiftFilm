@@ -45,20 +45,22 @@ export async function fetchMovieDetails(movie) {
 
     const trailerResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(title + " trailer")}&type=video&key=AIzaSyAVuczGe0Fjxem02s7Y1fM9t-Dcc0ZnVeA`);
     const trailerData = await trailerResponse.json();
-    const videoID = trailerData.items[0].id.videoId;
+    const videoId = trailerData.items[0].id.videoId;
 
     const similarRes = await fetch(`https://api.themoviedb.org/3/${type}/${movie.id}/recommendations?language=en-US&page=1`, options);
     const similarData = await similarRes.json();
     const similarMovies = similarData.results.slice(0, 5);
-
+    
+    
     return {
       movie,
       topCast, 
-      videoID, 
+      videoId, 
       similarMovies
     }
 
   } catch (error) {
-    console.error("Failed:", error);
+
+      console.error("Failed:", error);
   };
 };

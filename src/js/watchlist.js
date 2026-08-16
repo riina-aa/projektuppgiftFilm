@@ -1,4 +1,4 @@
-import { getSavedMovies, saveToLocalStorage } from "./main.js";
+import { getSavedMovies, mobileSearch, saveToLocalStorage } from "./main.js";
 import { fetchMovieDetails } from "./api.js";
 import { getMediaLabel, getStatusText } from "./display.js"
 
@@ -11,6 +11,7 @@ function initWatchlist() {
   const savedMovies = getSavedMovies();
 
   displayWatchlist(savedMovies, "#saved-movies");
+  mobileSearch();
 }
 
 export function displayWatchlist(movies, sectionID) {
