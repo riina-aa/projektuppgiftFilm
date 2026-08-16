@@ -1,6 +1,16 @@
 import { displayModal } from "./display.js";
 
-
+/**
+ * Hämtar filmer eller serier från The Movie Database API.
+ *
+ * Använder den angivna endpointen för att hämta data och returnerar
+ * resultatet från API-anropet.
+ *
+ * @async
+ * @param {string} endpoint - API-endpointen som ska användas vid anropet.
+ * @returns {Promise<Array|undefined>} En array med filmer eller serier,
+ * eller undefined om anropet misslyckas.
+ */
 export async function fetchMovies(endpoint) {
 
   const options = {
@@ -25,6 +35,18 @@ export async function fetchMovies(endpoint) {
 
 };
 
+/**
+ * Hämtar detaljerad information om en film eller serie.
+ *
+ * Hämtar bland annat de fyra första skådespelarna, en trailer från YouTube
+ * samt rekommenderade filmer eller serier från The Movie Database.
+ *
+ * @async
+ * @param {Object} movie - Filmen eller serien som information ska hämtas om.
+ * @returns {Promise<Object|undefined>} Ett objekt som innehåller filmen,
+ * skådespelare, trailer-ID och rekommenderade titlar, eller undefined
+ * om något av API-anropen misslyckas.
+ */
 export async function fetchMovieDetails(movie) {
 
   const title = movie.title || movie.name || "Titel saknas";
