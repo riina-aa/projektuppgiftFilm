@@ -8,10 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
   initHome();
 })
 
+/**
+ * Hämtar sparade filmer och serier från localStorage.
+ *
+ * @returns {Array} En array med sparade filmer och serier.
+ */
 export function getSavedMovies() {
   return JSON.parse(localStorage.getItem("savedMovies")) || [];
 }
 
+/**
+ * Sparar filmer och serier i localStorage.
+ *
+ * @param {Array} movies - Arrayen med filmer och serier som ska sparas.
+ * @returns {void}
+ */
 export function saveToLocalStorage(movies) {
   localStorage.setItem("savedMovies", JSON.stringify(movies));
 }
@@ -20,6 +31,16 @@ let cachedMovies = [];
 let currentType = "movie";
 let currentGenre = null;
 
+/**
+ * Initierar startsidan genom att hämta och visa filmer och serier.
+ *
+ * Hämtar populära filmer, filmer inom olika genrer samt populära TV-serier.
+ * Resultaten sparas även i cachedMovies för att kunna användas vid sökning
+ * och filtrering.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
 async function initHome() {
 
   toggleDarkLightMode();
@@ -126,6 +147,14 @@ async function initHome() {
 
 };
 
+/**
+ * Hanterar sökning efter filmer och serier.
+ *
+ * Lyssnar efter förändringar i sökfältet och filtrerar det cachade
+ * innehållet utifrån den text användaren skriver in.
+ *
+ * @returns {void}
+ */
 function search() {
 
   const searchInput = document.querySelector("#search");
@@ -156,6 +185,14 @@ function search() {
   });
 };
 
+/**
+ * Aktiverar sökfunktionen på mobila enheter.
+ *
+ * När användaren klickar på sökikonen visas sökfältet och får fokus.
+ * När sökfältet tappar fokus tas den aktiva klassen bort från navigationen.
+ *
+ * @returns {void}
+ */
 export function mobileSearch() {
 
     const searchInput = document.querySelector("#search");
@@ -177,6 +214,16 @@ export function mobileSearch() {
     });
 }
 
+/**
+ * Visar resultatet från en sökning.
+ *
+ * Om sökningen inte ger några resultat visas ett meddelande.
+ * Om resultat hittas skapas ett filmkort för varje film eller serie.
+ *
+ * @param {Array} results - Filmerna och serierna som matchar sökningen.
+ * @param {string} query - Texten som användaren sökte efter.
+ * @returns {void}
+ */
 function displaySearchResults(results, query) {
 
   const resultsDiv = document.querySelector(".search-results");
@@ -246,6 +293,12 @@ function displaySearchResults(results, query) {
   });
 };
 
+/**
+ * Visar eller döljer filmsektionerna på sidan.
+ *
+ * @param {boolean} show - Anger om sektionerna ska visas.
+ * @returns {void}
+ */
 function toggleSections(show) {
   const sections = document.querySelectorAll(".movie-section");
 
@@ -254,6 +307,12 @@ function toggleSections(show) {
   })
 }
 
+/**
+ * Visar eller döljer sektionen för sökresultat.
+ *
+ * @param {boolean} show - Anger om söksektionen ska visas.
+ * @returns {void}
+ */
 function toggleSearchSection(show) {
   const searchSection = document.querySelector(".search-container");
 
@@ -262,6 +321,14 @@ function toggleSearchSection(show) {
   searchSection.style.display = show ? "block" : "none";
 }
 
+/**
+ * Växlar mellan ljust och mörkt läge.
+ *
+ * Ändrar logotypen och lägger till eller tar bort den aktiva klassen
+ * från relevanta delar av sidan.
+ *
+ * @returns {void}
+ */
 export function toggleDarkLightMode() {
 
   const toggleBar = document.querySelector(".toggle-ball");
@@ -283,6 +350,14 @@ export function toggleDarkLightMode() {
   })
 }
 
+/**
+ * Filtrerar det cachade innehållet utifrån vald mediatyp och genre.
+ *
+ * Tar bort dubbletter baserat på filmens eller seriens ID och filtrerar
+ * därefter resultatet utifrån currentType och currentGenre.
+ *
+ * @returns {void}
+ */
 function filterContent() {
 
   const onlyOneMovie = Array.from(
@@ -306,6 +381,11 @@ function filterContent() {
   updateSelectedOption();
 }
 
+/**
+ * Uppdaterar vilket genre-alternativ som är markerat som valt.
+ *
+ * @returns {void}
+ */
 function updateSelectedOption() {
 
   const categoryOption = document.querySelectorAll(".option")
@@ -347,6 +427,11 @@ const tvGenres = {
   10751: "Family"
 };
 
+/**
+ * Hämtar genrelistan för den aktuella mediatypen.
+ *
+ * @returns {Object} Ett objekt som innehåller genre-ID:n och deras namn.
+ */
 function getActiveGenreMap() {
   if (currentType === "tv") {
     return tvGenres;
@@ -355,6 +440,14 @@ function getActiveGenreMap() {
   }
 };
 
+/**
+ * Skapar och visar genrealternativ i den anpassade dropdown-menyn.
+ *
+ * Hämtar relevanta genrer beroende på om filmer eller serier är valda
+ * och kopplar därefter händelser till varje alternativ.
+ *
+ * @returns {void}
+ */
 function displayGenres() {
 
   const genres = getActiveGenreMap();
@@ -370,6 +463,14 @@ function displayGenres() {
   attachGenreEvents();
 }
 
+/**
+ * Lägger till klickhändelser på genrealternativen.
+ *
+ * När användaren väljer en genre uppdateras currentGenre och innehållet
+ * filtreras utifrån det valda alternativet.
+ *
+ * @returns {void}
+ */
 function attachGenreEvents() {
 
   const categoryOptions = document.querySelectorAll(".option");

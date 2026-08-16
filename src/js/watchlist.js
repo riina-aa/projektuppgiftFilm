@@ -6,6 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initWatchlist();
 })
 
+/**
+ * Initierar watchlist-sidan.
+ *
+ * Hämtar sparade filmer och serier från localStorage och visar dem
+ * på sidan. Aktiverar även sökfunktionen för mobila enheter.
+ *
+ * @returns {void}
+ */
 function initWatchlist() {
 
   const savedMovies = getSavedMovies();
@@ -14,6 +22,17 @@ function initWatchlist() {
   mobileSearch();
 }
 
+/**
+ * Visar sparade filmer och serier i watchlist-sektionen.
+ *
+ * Skapar ett filmkort för varje sparad titel och lägger till funktioner
+ * för att ta bort titeln från watchlisten eller visa mer information
+ * i en modal.
+ *
+ * @param {Array} movies - Array med sparade filmer och serier.
+ * @param {string} sectionID - CSS-selektorn för sektionen där innehållet ska visas.
+ * @returns {void}
+ */
 export function displayWatchlist(movies, sectionID) {
 
   let section = document.querySelector(sectionID);
@@ -75,6 +94,19 @@ export function displayWatchlist(movies, sectionID) {
   });
 }
 
+/**
+ * Visar en modal med information och journalfunktioner för en film eller serie.
+ *
+ * Modalen innehåller information om titeln, betyg, beskrivning,
+ * skådespelare och trailer. Användaren kan även ändra status, sätta
+ * ett personligt betyg och skriva en kommentar.
+ *
+ * @param {Object} movie - Filmen eller serien som ska visas.
+ * @param {Array} cast - Array med skådespelare som visas i modalen.
+ * @param {string} trailerID - ID för YouTube-trailern.
+ * @param {Array} recommendations - Array med rekommenderade filmer eller serier.
+ * @returns {void}
+ */
 function displayMovieJournal(movie, cast, trailerID, recommendations) {
 
   const modal = document.querySelector(".modal");
@@ -356,6 +388,15 @@ function displayMovieJournal(movie, cast, trailerID, recommendations) {
   });
 }
 
+/**
+ * Lägger till användarens journalinformation till filmer och serier.
+ *
+ * Matchar filmer och serier mot de sparade titlarna i localStorage
+ * och kompletterar dem med användarens status, betyg och kommentar.
+ *
+ * @param {Array} movies - Array med filmer och serier som ska kompletteras.
+ * @returns {Array} En ny array med filmer och serier inklusive sparad journaldata.
+ */
 export function addJournalData(movies) {
 
     const savedMovies = getSavedMovies();
@@ -379,6 +420,14 @@ export function addJournalData(movies) {
     });
 }
 
+/**
+ * Uppdaterar watchlist-sektionen på startsidan.
+ *
+ * Hämtar de sparade filmerna och visar eller döljer watchlist-sektionen
+ * beroende på om användaren har några sparade titlar.
+ *
+ * @returns {void}
+ */
 export function updateHomeWatchlist() {
 
   const savedMovies = getSavedMovies();

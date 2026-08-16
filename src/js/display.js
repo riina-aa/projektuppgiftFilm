@@ -2,6 +2,18 @@ import { getSavedMovies, saveToLocalStorage } from "./main.js";
 import { addJournalData, updateHomeWatchlist, displayWatchlist } from "./watchlist.js";
 import { fetchMovieDetails } from "./api.js";
 
+/**
+ * Visar filmer och serier i en angiven sektion på sidan.
+ *
+ * Lägger till information om filmens status och skapar knappar
+ * för att lägga till eller ta bort titeln från watchlisten samt
+ * visa mer information i en modal.
+ *
+ * @param {Array} movies - Array med filmer och serier som ska visas.
+ * @param {string} sectionID - CSS-selektorn för sektionen där innehållet ska visas.
+ * @param {number} filter - Maximalt antal filmer eller serier som ska visas.
+ * @returns {void}
+ */
 export function displayMovies(movies, sectionID, filter = 7) {
 
   movies = addJournalData(movies);
@@ -82,6 +94,18 @@ export function displayMovies(movies, sectionID, filter = 7) {
   });
 };
 
+/**
+ * Visar en modal med detaljer om en film eller serie.
+ *
+ * Modalen innehåller bland annat titel, betyg, beskrivning,
+ * skådespelare, trailer, watchlist-knapp och rekommenderade titlar.
+ *
+ * @param {Object} movie - Filmen eller serien som ska visas.
+ * @param {Array} cast - Array med skådespelare som visas i modalen.
+ * @param {string} trailerID - ID för YouTube-trailern.
+ * @param {Array} recommendations - Array med liknande filmer eller serier.
+ * @returns {void}
+ */
 export function displayModal(movie, cast, trailerID, recommendations) {
 
   const modal = document.querySelector(".modal");
@@ -249,6 +273,12 @@ export function displayModal(movie, cast, trailerID, recommendations) {
   });
 }
 
+/**
+ * Hämtar den text som ska visas för den aktuella mediatypen.
+ *
+ * @param {string} type - Mediatypen, exempelvis "movie" eller "tv".
+ * @returns {string|undefined} "Film" eller "Serie" beroende på mediatyp.
+ */
 export function getMediaLabel(type) {
 
   if (type === "tv") return "Serie";
@@ -256,6 +286,12 @@ export function getMediaLabel(type) {
 
 }
 
+/**
+ * Hämtar den text som ska visas för en films eller series status.
+ *
+ * @param {string} status - Statusen för filmen eller serien.
+ * @returns {string} En text som beskriver statusen.
+ */
 export function getStatusText(status) {
 
   if (status === "must") {
