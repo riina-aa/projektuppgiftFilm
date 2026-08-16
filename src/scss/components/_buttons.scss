@@ -1,0 +1,77 @@
+@use "/src/scss/base/base";
+
+a.backBtn {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+
+    padding: 0.6rem 0.9rem;
+    max-width: fit-content;
+
+    background-color: base.$color-primary-blue;
+    border-radius: 15px;
+
+    font-size: base.$font-size-buttons;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        background-color: base.$color-dark-blue;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.filterBtn {
+    padding: 0.5rem 1rem;
+    max-width: fit-content;
+
+    font-family: base.$font;
+    font-size: base.$font-size-buttons;
+    background-color: base.$color-button-grey;
+    color: white;
+
+    border: none;
+    border-radius: 50px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: base.$color-dark-grey;
+    }
+}
+
+.filterBtn.active {
+    background-color: base.$color-primary-green;
+    color: black;
+}
+
+.categoryBtn {
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+
+    padding: 0.5rem 1rem;
+    max-width: fit-content;
+
+    font-family: base.$font;
+    background-color: base.$color-button-grey;
+    color: white;
+
+    border: none;
+    border-radius: 50px;
+
+    span {
+        font-size: base.$font-size-buttons;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}

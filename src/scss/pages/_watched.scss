@@ -1,0 +1,17 @@
+@use "/src/scss/base/base";
+
+
+.container {
+
+    h1 {
+        color: white;
+        margin-bottom: 2rem;
+    }
+
+    #saved-movies {
+
+        p {
+            color: white;
+        }
+    }
+}

@@ -6,7 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/src/scss/main.scss">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -15,54 +15,93 @@
   <title>projektuppgift</title>
 </head>
 
-<body>
-  <div id="logo"><a href="index.html"><img src="/public/images/logo.png" alt=""></a></div>
-  <header></header>
-  <nav>
-    <label for="search">
-      <span>Vad vill du titta på idag?</span>
-      <span class="material-symbols-outlined">arrow_forward</span>
-    </label>
-    <div>
-      <input type="text">
-      <span id="search-icon" class="material-symbols-outlined">search</span>
+<body class="body">
+
+  <nav class="nav">
+    <div id="logo">
+      <a class="logo-link" href="index.html">
+        <img src="/public/images/logo.png" alt="">
+      </a>
     </div>
-    
-    <div class="watchlist">
-      <span class="material-symbols-outlined">bookmark_star</span>
-      <span>Watchlist</span>
+    <div class="menu">
+      <label for="search">Sök:</label>
+      <div class="input-container">
+        <input type="text" id="search">
+        <span id="search-icon" class="material-symbols-outlined">search</span>
+      </div>
+
+      <div class="watchlist">
+        <span class="material-symbols-outlined">bookmark</span>
+        <a href="watchlist.html">Watchlist</a>
+      </div>
+      <div class="mode-toggle-container">
+        <div class="mode-toggle">
+          <span class="material-symbols-outlined mode-icon">dark_mode</span>
+          <span class="material-symbols-outlined mode-icon">light_mode</span>
+          <div class="toggle-ball"></div>
+        </div>
+      </div>
     </div>
+
   </nav>
 
-  <section>
+  <section class="search-container">
+    <h1>Dina sökresultat:</h1>
+    <div class="search-results movie-cards"></div>
+    <a class="backBtn" href="index.html">
+      <span class="closeIcon material-symbols-outlined">arrow_back</span>
+      <span>Gå tillbaka till utforskaren</span>
+    </a>
+  </section>
+
+  <section class="movie-section">
     <h2>Populäraste filmerna just nu</h2>
     <div id="popular" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
+    <h2>Sortera efter kategori</h2>
+    <div class="filter-row">
+      <button id="movieBtn" class="filterBtn">Filmer</button>
+      <button id="tvBtn" class="filterBtn">Serier</button>
+      <div id="genre-select" class="custom-select">
+        <div id="select-btn" class="categoryBtn">
+          <span class="selected">Kategorier</span>
+          <span class="arrow material-symbols-outlined">expand_more</span>
+        </div>
+        <div class="options"></div>
+      </div>
+    </div>
+    <div id="all" class="movie-cards"></div>
+  </section>
+
+  <section class="movie-section">
     <h2>Filmer till kvällsmyset</h2>
     <div id="cozy" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
     <h2>Adrenalin på hög nivå</h2>
     <div id="action" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
+    <h2>Sträcktitta serier i flera dagar</h2>
+    <div id="series" class="movie-cards"></div>
+  </section>
+
+  <section id="watchlist-section" class="movie-section">
     <h2>Från din watchlist</h2>
     <div id="display-watchlist" class="movie-cards"></div>
   </section>
 
-  <section>
+  <section class="movie-section">
     <h2>Drama drama drama...</h2>
     <div id="drama" class="movie-cards"></div>
   </section>
 
   <div class="modal">
-      <div class="modal-content">
-        <span class="material-symbols-outlined">close</span>
-      </div>
+    <div class="modal-content"></div>
   </div>
 
   <script type="module" src="/src/js/main.js"></script>
