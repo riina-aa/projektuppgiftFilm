@@ -70,10 +70,10 @@ export function displayMovies(movies, sectionID, filter = 7) {
     infoIcon.addEventListener("click", async () => {
 
       const movieDetails = await fetchMovieDetails(movie);
-
+      
       displayModal(
         movie,
-        movieDetails.topCast,
+        movieDetails.topCast, 
         movieDetails.videoId,
         movieDetails.similarMovies
       );

@@ -62,6 +62,5 @@ export async function fetchMovieDetails(movie) {
   } catch (error) {
 
       console.error("Failed:", error);
-
   };
 };
