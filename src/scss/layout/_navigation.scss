@@ -26,6 +26,7 @@ nav {
 
     #logo {
         max-width: fit-content;
+        align-content: center;
 
         img {
             width: 325px;
@@ -46,7 +47,7 @@ nav {
         }
 
         .input-container {
-            max-width: fit-content;
+            width: 350px;
             align-content: center;
             position: relative;
 

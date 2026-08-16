@@ -43,7 +43,7 @@ section {
 
 
 .movie-card {
-    @include mixins.movie-card(170px, 255px, 40px);
+    @include mixins.movie-card(170px, 255px, 40px, 16px);
     flex: 0 0 auto;
     opacity: 0;
     transform: translateY(10px);
@@ -147,6 +147,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 2;
     background-color: rgba($color: base.$color-primary-coral, $alpha: 0.7);
 
     .modal-content {
@@ -296,7 +297,7 @@ section {
                 gap: 1rem;
 
                 .reco-card {
-                    @include mixins.movie-card(100px, 150px, 24px);
+                    @include mixins.movie-card(100px, 150px, 24px, 12px);
                 }
             }
         }
@@ -444,7 +445,7 @@ section {
     .reco-cards {
 
         .reco-card {
-            @include mixins.movie-card(130px, 195px, 28px);
+            @include mixins.movie-card(130px, 195px, 28px, 14px);
         }
     }
 }
